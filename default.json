@@ -1,0 +1,11 @@
+{
+    "length": 12,
+    "use_lower": true,
+    "use_upper": true,
+    "use_digits": true,
+    "use_punct": true,
+    "punctuation_level": 3,
+    "num_passwords": 5,
+    "output_method": "print",
+    "generation_mode": "1"
+}
