@@ -1,10 +1,14 @@
+# Libreries 
+
 import random
 import itertools
 from textwrap import dedent
 import json
 import os
 
-logo2 = dedent("""
+# Data 
+
+logo = dedent("""
          ▐ ▄  ▄▄▄· .▄▄ · ▄▄▄▄▄ ▄· ▄▌     ▄▄▄· ▄▄▄· .▄▄ · .▄▄ · 
         •█▌▐█▐█ ▀█ ▐█ ▀. •██  ▐█▪██▌    ▐█ ▄█▐█ ▀█ ▐█ ▀. ▐█ ▀. 
         ▐█▐▐▌▄█▀▀█ ▄▀▀▀█▄ ▐█.▪▐█▌▐█▪     ██▀·▄█▀▀█ ▄▀▀▀█▄▄▀▀▀█▄
@@ -12,23 +16,30 @@ logo2 = dedent("""
         ▀▀ █▪ ▀  ▀  ▀▀▀▀  ▀▀▀   ▀ •     .▀    ▀  ▀  ▀▀▀▀  ▀▀▀▀ 
 """)
 
+# Functions
+
 def print_section(title):
     print("=" * 80)
     print("{:^80}".format(title))
     print("=" * 80)
 
+
 def prompt(label):
     print(f"[#] {label.ljust(40)}")
     return input(" |--> ").strip()
 
+
 def print_formatted(text):
     print("{:80}".format(text))
+
 
 def print_options(text):
     print(" "*4 + text)
 
+
 def print_choise(options):
-    return input(f"👉  Enter your choice {options} : ").strip()
+    return input(f"👉  Enter your choice {options} : ")
+
 
 def list_to_string(symbols, per_line=10):
     lines = []
@@ -36,6 +47,7 @@ def list_to_string(symbols, per_line=10):
         chunk = symbols[i:i+per_line]
         lines.append("  ".join(chunk))
     return "\n".join(lines)
+
 
 def get_punctuation_by_level():
     level_1 = ['!', '@', '#', '$', '%', '&', '*', '_']
@@ -77,6 +89,7 @@ def get_punctuation_by_level():
         except ValueError:
             print("Invalid input. Enter a number.")
 
+
 def check_or_create_default_file():
     if not os.path.exists("default.json"):
         default_settings = {
@@ -94,6 +107,7 @@ def check_or_create_default_file():
             json.dump(default_settings, f, indent=4)
         print("Created default.json with default settings.")
 
+
 def load_default_settings():
     try:
         with open("default.json", "r") as f:
@@ -102,17 +116,39 @@ def load_default_settings():
         print(f"Could not load default settings: {e}")
         return {}
 
+
+def ask_number(prompt, options, min_val, max_val):
+    while True:
+        try:
+            text = prompt + " " + options + " : "
+            value = int(input("{:45}".format(text)))
+            #value = input(f"👉  Enter your choice {options} : ")
+            if min_val <= value <= max_val:
+                return value
+            else:
+                print(f"❌  Please enter a number between {min_val} and {max_val}!")
+        except ValueError:
+            print("❌  Please enter a valid number!")
+
+
+
+## Main Funcion
+
 def generate_passwords():
     print_section("🔐  Password Generator  🔐")
     print_formatted("[#] What would you like to do?")
     print_options("(1) Generate a new password")
     print_options("(2) Create a custom password")
     print_options("(3) Use a default password")
-    choice = print_choise("(1/2/3)")
+    # choice = print_choise("(1/2/3)")
+    choice = ask_number(f"👉  Enter your choice","(1/2/3)",1,3)
 
-    if choice == "1":
+    if choice == 1:
         print_section("🔧  Password Configuration  🔧")
-        length= int(input("{:45}".format("🔢  Password length :")))
+
+        #length = int(input("{:45}".format("🔢  Password length :")))
+        length = ask_number(f"🔢  Password length","(1-128)",1,128)
+
         use_lower= input("{:45}".format("🔡  Include lowercase letters? (y/n) :")) == 'y'
         use_upper= input("{:45}".format("🔠  Include uppercase letters? (y/n) :")) == 'y'
         use_digits= input("{:45}".format("🔢  Include numbers? (y/n) :")) == 'y'
@@ -144,7 +180,7 @@ def generate_passwords():
         
         generation_mode = print_choise("(1 or 2)")
 
-    elif choice == "3":
+    elif choice == 3:
         print_section("Using Default Settings")
         settings = load_default_settings()
         length = settings.get("length", 12)
@@ -175,7 +211,7 @@ def generate_passwords():
             elif punctuation_level == 3:
                 characters += ['!', '@', '#', '$', '%', '&', '*', '_', '^', '-', '+', '=', '?', '"', "'", '(', ')', ',', '.', '/', ':', ';', '<', '>', '[', '\\', ']', '`', '{', '|', '}', '~']
 
-    elif choice == "2":
+    elif choice == 2:
         print_section("Custom Password")
         print("Custom password feature not yet implemented.")
         return
@@ -208,9 +244,11 @@ def generate_passwords():
                 f.write(pwd + "\n")
         print_formatted("✅  Successful generation! Passwords saved in the file:  {file_name}")
 
+# Main
+
 if __name__ == "__main__":
     width = 80
-    for line in logo2.splitlines():
+    for line in logo.splitlines():
         print(line.center(width))
     check_or_create_default_file()
     generate_passwords()
