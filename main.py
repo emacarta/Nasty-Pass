@@ -30,13 +30,42 @@ def print_options(text):
 def print_choise(options):
     return input(f"👉  Enter your choice {options} : ").strip()
 
+def list_to_string(symbols, per_line=10):
+    lines = []
+    for i in range(0, len(symbols), per_line):
+        chunk = symbols[i:i+per_line]
+        lines.append("  ".join(chunk))
+    return "\n".join(lines)
+
 def get_punctuation_by_level():
     level_1 = ['!', '@', '#', '$', '%', '&', '*', '_']
     level_2 = ['^', '-', '+', '=', '?']
     level_3 = ['"', "'", '(', ')', ',', '.', '/', ':', ';', '<', '>', '[', '\\', ']', '`', '{', '|', '}', '~']
+    
+    # Creiamo le stringhe
+    str_level_1 = list_to_string(level_1)
+    str_level_2 = list_to_string(level_2)
+    str_level_3 = list_to_string(level_3)
+
+    # Stampa grafica carina
+    print("-" * 80)
+    print("{:^80}".format("🔣  Punctuation Levels"))
+    print("-" * 80)
+
+    print("{:45}".format("🔸 Level 1 (Basic)"))
+    print("{:^80}".format(str_level_1))
+
+    print("{:45}".format("\n🔸 Level 2 (Intermediate)"))
+    print("{:^80}".format(str_level_2))
+
+    print("{:45}".format("\n🔸 Level 3 (Extended)"))
+    print("{:^80}".format("error in visualizaion"))
+    #print("{:^80}".format(str_level_3[:5]))
+
     while True:
         try:
-            level = int(input("{:45}".format("⚙️   Select punctuation level (1/2/3) :  ")))
+            
+            level = int(input("{:45}".format("\n⚙️  - Select punctuation level (1/2/3) :")))
             if level == 1:
                 return level_1
             elif level == 2:
@@ -106,10 +135,14 @@ def generate_passwords():
             print("You must select at least one character type.")
             return
 
-        print_section("Generation Options")
-        num_passwords = int(prompt("How many passwords to generate?"))
-        output_method = prompt("Output method [print/file]:")
-        generation_mode = prompt("Generation mode: random (1) or sequential (2)?:")
+        print_section("🛠️  Generation Options  🛠️")
+        num_passwords= int(input("{:45}".format("🔢  How many passwords to generate? ")))
+        output_method= input("{:45}".format("🖨️   Output method [print/file]: "))
+        print_formatted("🎲  Generation mode:")
+        print_options("(1) random")
+        print_options("(2) sequential")
+        
+        generation_mode = print_choise("(1 or 2)")
 
     elif choice == "3":
         print_section("Using Default Settings")
@@ -162,16 +195,18 @@ def generate_passwords():
                 break
             passwords.append(''.join(comb))
 
-    print_section("Output")
+    print_section("📝  Output  📝")
     if output_method == 'print':
         for pwd in passwords:
             print(pwd)
+        print_formatted(f"\n✅  Successful generation!")
+
     elif output_method == 'file':
-        file_name = prompt("Enter the filename (with .txt extension):")
+        file_name = str(input("{:45}".format("📋  Enter the filename: "))) + ".txt"
         with open(file_name, "w") as f:
             for pwd in passwords:
                 f.write(pwd + "\n")
-        print(f"\nPasswords saved to file: {file_name}")
+        print_formatted("✅  Successful generation! Passwords saved in the file:  {file_name}")
 
 if __name__ == "__main__":
     width = 80
