@@ -17,6 +17,37 @@ logo = dedent("""
         ▀▀ █▪ ▀  ▀  ▀▀▀▀  ▀▀▀   ▀ •     .▀    ▀  ▀  ▀▀▀▀  ▀▀▀▀ 
 """)
 
+
+letter_variants = {
+    'a': ['A', '@', '4'],
+    'b': ['B', '8'],
+    'c': ['C', '(', '<'],
+    'd': ['D'],
+    'e': ['E', '3'],
+    'f': ['F'],
+    'g': ['G', '9', '6'],
+    'h': ['H', '#'],
+    'i': ['I', '1', '!', '|'],
+    'j': ['J'],
+    'k': ['K'],
+    'l': ['L', '1', '|'],
+    'm': ['M'],
+    'n': ['N'],
+    'o': ['O', '0'],
+    'p': ['P'],
+    'q': ['Q', '9'],
+    'r': ['R'],
+    's': ['S', '$', '5'],
+    't': ['T', '7', '+'],
+    'u': ['U', 'v'],
+    'v': ['V', 'u', 'U'],
+    'w': ['W', 'm', 'M'],
+    'x': ['X', '%', '*'],
+    'y': ['Y'],
+    'z': ['Z', '2']
+}
+
+
 # Functions
 
 def print_section(title):
@@ -173,13 +204,14 @@ def print_default_settings_and_confirm(settings):
         exit()
 
 
+
 ## Main Funcion
 
 def generate_passwords():
     print_section(f"🔐  Password Generator  🔐")
     print_formatted(f"🤌  What would you like to do?")
     print_options("(1) Generate a new password")
-    print_options("(2) Create a custom password")
+    print_options("(2) Create a custom password" + "  WORK PROGRESS")
     print_options("(3) Use a default password")
     choice = ask_number(f"👉  Enter your choice","(1/2/3)",1,3)
 
