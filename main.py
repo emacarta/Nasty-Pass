@@ -4,36 +4,39 @@ from textwrap import dedent
 import json
 import os
 
-logo = dedent('''
-
-           ███▄    █  ▄▄▄        ██████ ▄▄▄█████▓▓██   ██▓    ██▓███   ▄▄▄        ██████   ██████           
-           ██ ▀█   █ ▒████▄    ▒██    ▒ ▓  ██▒ ▓▒ ▒██  ██▒   ▓██░  ██▒▒████▄    ▒██    ▒ ▒██    ▒           
-          ▓██  ▀█ ██▒▒██  ▀█▄  ░ ▓██▄   ▒ ▓██░ ▒░  ▒██ ██░   ▓██░ ██▓▒▒██  ▀█▄  ░ ▓██▄   ░ ▓██▄             
-          ▓██▒  ▐▌██▒░██▄▄▄▄██   ▒   ██▒░ ▓██▓ ░   ░ ▐██▓░   ▒██▄█▓▒ ▒░██▄▄▄▄██   ▒   ██▒  ▒   ██▒          
- ██▓  ██▓ ▒██░   ▓██░ ▓█   ▓██▒▒██████▒▒  ▒██▒ ░   ░ ██▒▓░   ▒██▒ ░  ░ ▓█   ▓██▒▒██████▒▒▒██████▒▒ ██▓  ██▓ 
- ▒▓▒  ▒▓▒ ░ ▒░   ▒ ▒  ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░  ▒ ░░      ██▒▒▒    ▒▓▒░ ░  ░ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░ ▒▓▒  ▒▓▒ 
- ░▒   ░▒  ░ ░░   ░ ▒░  ▒   ▒▒ ░░ ░▒  ░ ░    ░     ▓██ ░▒░    ░▒ ░       ▒   ▒▒ ░░ ░▒  ░ ░░ ░▒  ░ ░ ░▒   ░▒  
- ░    ░      ░   ░ ░   ░   ▒   ░  ░  ░    ░       ▒ ▒ ░░     ░░         ░   ▒   ░  ░  ░  ░  ░  ░   ░    ░   
-  ░    ░           ░       ░  ░      ░            ░ ░                       ░  ░      ░        ░    ░    
-  ░    ░                                          ░ ░                                               ░    ░  
-
-''')
+logo2 = dedent("""
+         ▐ ▄  ▄▄▄· .▄▄ · ▄▄▄▄▄ ▄· ▄▌     ▄▄▄· ▄▄▄· .▄▄ · .▄▄ · 
+        •█▌▐█▐█ ▀█ ▐█ ▀. •██  ▐█▪██▌    ▐█ ▄█▐█ ▀█ ▐█ ▀. ▐█ ▀. 
+        ▐█▐▐▌▄█▀▀█ ▄▀▀▀█▄ ▐█.▪▐█▌▐█▪     ██▀·▄█▀▀█ ▄▀▀▀█▄▄▀▀▀█▄
+        ██▐█▌▐█ ▪▐▌▐█▄▪▐█ ▐█▌· ▐█▀·.    ▐█▪·•▐█ ▪▐▌▐█▄▪▐█▐█▄▪▐█
+        ▀▀ █▪ ▀  ▀  ▀▀▀▀  ▀▀▀   ▀ •     .▀    ▀  ▀  ▀▀▀▀  ▀▀▀▀ 
+""")
 
 def print_section(title):
-    print(f"\n{'=' * 12} {title} {'=' * 12}\n")
+    print("=" * 80)
+    print("{:^80}".format(title))
+    print("=" * 80)
 
 def prompt(label):
     print(f"[#] {label.ljust(40)}")
     return input(" |--> ").strip()
 
+def print_formatted(text):
+    print("{:80}".format(text))
+
+def print_options(text):
+    print(" "*4 + text)
+
+def print_choise(options):
+    return input(f"👉  Enter your choice {options} : ").strip()
+
 def get_punctuation_by_level():
     level_1 = ['!', '@', '#', '$', '%', '&', '*', '_']
     level_2 = ['^', '-', '+', '=', '?']
     level_3 = ['"', "'", '(', ')', ',', '.', '/', ':', ';', '<', '>', '[', '\\', ']', '`', '{', '|', '}', '~']
-
     while True:
         try:
-            level = int(prompt("Select punctuation level (1, 2 or 3):"))
+            level = int(input("{:45}".format("⚙️   Select punctuation level (1/2/3) :  ")))
             if level == 1:
                 return level_1
             elif level == 2:
@@ -46,8 +49,7 @@ def get_punctuation_by_level():
             print("Invalid input. Enter a number.")
 
 def check_or_create_default_file():
-    default_path = "default.json"
-    if not os.path.exists(default_path):
+    if not os.path.exists("default.json"):
         default_settings = {
             "length": 12,
             "use_lower": True,
@@ -59,7 +61,7 @@ def check_or_create_default_file():
             "output_method": "print",
             "generation_mode": "1"
         }
-        with open(default_path, "w") as f:
+        with open("default.json", "w") as f:
             json.dump(default_settings, f, indent=4)
         print("Created default.json with default settings.")
 
@@ -72,16 +74,20 @@ def load_default_settings():
         return {}
 
 def generate_passwords():
-    print_section("Password Generator")
-    choice = prompt("New password (1), custom (2), or from default (3)?")
+    print_section("🔐  Password Generator  🔐")
+    print_formatted("[#] What would you like to do?")
+    print_options("(1) Generate a new password")
+    print_options("(2) Create a custom password")
+    print_options("(3) Use a default password")
+    choice = print_choise("(1/2/3)")
 
     if choice == "1":
-        print_section("Password Configuration")
-        length = int(prompt("Password length:"))
-        use_lower = prompt("Include lowercase letters? (y/n):").lower() == 'y'
-        use_upper = prompt("Include uppercase letters? (y/n):").lower() == 'y'
-        use_digits = prompt("Include numbers? (y/n):").lower() == 'y'
-        use_punct = prompt("Include punctuation? (y/n):").lower() == 'y'
+        print_section("🔧  Password Configuration  🔧")
+        length= int(input("{:45}".format("🔢  Password length :")))
+        use_lower= input("{:45}".format("🔡  Include lowercase letters? (y/n) :")) == 'y'
+        use_upper= input("{:45}".format("🔠  Include uppercase letters? (y/n) :")) == 'y'
+        use_digits= input("{:45}".format("🔢  Include numbers? (y/n) :")) == 'y'
+        use_punct= input("{:45}".format("🔣  Include punctuation? (y/n) :")) == 'y'
 
         characters = []
         if use_lower and use_upper:
@@ -140,18 +146,15 @@ def generate_passwords():
         print_section("Custom Password")
         print("Custom password feature not yet implemented.")
         return
-
     else:
         print("Invalid option.")
         return
 
     passwords = []
-
     if generation_mode == '1':
         for _ in range(num_passwords):
             password = ''.join(random.choice(characters) for _ in range(length))
             passwords.append(password)
-
     elif generation_mode == '2':
         all_combinations = itertools.product(characters, repeat=length)
         for i, comb in enumerate(all_combinations):
@@ -170,8 +173,9 @@ def generate_passwords():
                 f.write(pwd + "\n")
         print(f"\nPasswords saved to file: {file_name}")
 
-# Start
 if __name__ == "__main__":
-    print(logo)
+    width = 80
+    for line in logo2.splitlines():
+        print(line.center(width))
     check_or_create_default_file()
     generate_passwords()
