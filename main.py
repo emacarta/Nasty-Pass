@@ -1,6 +1,7 @@
 # Libreries 
 
 import random
+import secrets
 import itertools
 from textwrap import dedent
 import json
@@ -76,8 +77,8 @@ def get_punctuation_by_level():
 
     while True:
         try:
-            
-            level = int(input("{:45}".format("\n⚙️  - Select punctuation level (1/2/3) :")))
+            level = ask_number("\n⚙️  - Select punctuation level","(1/2/3)",1,3 )
+            #level = int(input("{:45}".format("\n⚙️  - Select punctuation level (1/2/3) :")))
             if level == 1:
                 return level_1
             elif level == 2:
@@ -101,7 +102,7 @@ def check_or_create_default_file():
             "punctuation_level": 2,
             "num_passwords": 5,
             "output_method": "print",
-            "generation_mode": "1"
+            "generation_mode": 1
         }
         with open("default.json", "w") as f:
             json.dump(default_settings, f, indent=4)
@@ -122,37 +123,74 @@ def ask_number(prompt, options, min_val, max_val):
         try:
             text = prompt + " " + options + " : "
             value = int(input("{:45}".format(text)))
-            #value = input(f"👉  Enter your choice {options} : ")
-            if min_val <= value <= max_val:
+
+            if max_val == "inf" and min_val <= value:
+                return value
+            elif min_val <= value <= max_val:
                 return value
             else:
                 print(f"❌  Please enter a number between {min_val} and {max_val}!")
         except ValueError:
-            print("❌  Please enter a valid number!")
+            print(f"❌  Please enter a valid number!")
 
+
+def ask_yes_no(prompt):
+    while True:
+        text = prompt
+        answer = input("{:45}".format(text)).lower()
+        if answer in ('y', 'n'):
+            return answer == 'y'
+        else:
+            print("❌  Enter only 'y' for yes or 'n' for no!")
+
+
+def ask_print_file(prompt):
+    while True:
+        text = prompt
+        answer = input("{:45}".format(text)).lower()
+        if answer in ('print', 'file'):
+            return answer
+        else:
+            print("❌  Enter only print or file!")
+
+def print_default_settings_and_confirm(settings):
+    print("-" * 80)
+    print("{:^80}".format("📋  Default Settings Summary 📋"))
+    print("-" * 80)
+    print(f"{'Password length:':35} {settings.get('length', 12)}")
+    print(f"{'Include lowercase:':35} {settings.get('use_lower', True)}")
+    print(f"{'Include uppercase:':35} {settings.get('use_upper', True)}")
+    print(f"{'Include digits:':35} {settings.get('use_digits', True)}")
+    print(f"{'Include punctuation:':35} {settings.get('use_punct', True)}")
+    print(f"{'Punctuation level:':35} {settings.get('punctuation_level', 1)}")
+    print(f"{'Number of passwords:':35} {settings.get('num_passwords', 5)}")
+    print(f"{'Output method:':35} {settings.get('output_method', 'print')}")
+    print(f"{'Generation mode:':35} {settings.get('generation_mode', 1)}")
+
+    answer = ask_yes_no("\n❓  Do you want to continue with these settings? (y/n): ")
+    if not answer:
+        print("\n👋  Exiting the program.")
+        exit()
 
 
 ## Main Funcion
 
 def generate_passwords():
-    print_section("🔐  Password Generator  🔐")
-    print_formatted("[#] What would you like to do?")
+    print_section(f"🔐  Password Generator  🔐")
+    print_formatted(f"🤌  What would you like to do?")
     print_options("(1) Generate a new password")
     print_options("(2) Create a custom password")
     print_options("(3) Use a default password")
-    # choice = print_choise("(1/2/3)")
     choice = ask_number(f"👉  Enter your choice","(1/2/3)",1,3)
 
     if choice == 1:
         print_section("🔧  Password Configuration  🔧")
 
-        #length = int(input("{:45}".format("🔢  Password length :")))
         length = ask_number(f"🔢  Password length","(1-128)",1,128)
-
-        use_lower= input("{:45}".format("🔡  Include lowercase letters? (y/n) :")) == 'y'
-        use_upper= input("{:45}".format("🔠  Include uppercase letters? (y/n) :")) == 'y'
-        use_digits= input("{:45}".format("🔢  Include numbers? (y/n) :")) == 'y'
-        use_punct= input("{:45}".format("🔣  Include punctuation? (y/n) :")) == 'y'
+        use_lower = ask_yes_no("🔡  Include lowercase letters? (y/n) :")
+        use_upper = ask_yes_no("🔠  Include uppercase letters? (y/n) :")
+        use_digits = ask_yes_no("🔢  Include numbers? (y/n) :")
+        use_punct = ask_yes_no("🔣  Include punctuation? (y/n) :")
 
         characters = []
         if use_lower and use_upper:
@@ -172,17 +210,17 @@ def generate_passwords():
             return
 
         print_section("🛠️  Generation Options  🛠️")
-        num_passwords= int(input("{:45}".format("🔢  How many passwords to generate? ")))
-        output_method= input("{:45}".format("🖨️   Output method [print/file]: "))
+        num_passwords = ask_number("🔢  How many passwords to generate? ","",1,"inf")
+        output_method = ask_print_file("🖨️   Output method [print/file]: ")
         print_formatted("🎲  Generation mode:")
         print_options("(1) random")
         print_options("(2) sequential")
-        
-        generation_mode = print_choise("(1 or 2)")
+        generation_mode = ask_number(f"👉  Enter your choice","(1 or 2)",1,2)
 
     elif choice == 3:
         print_section("Using Default Settings")
         settings = load_default_settings()
+        print_default_settings_and_confirm(settings)
         length = settings.get("length", 12)
         use_lower = settings.get("use_lower", True)
         use_upper = settings.get("use_upper", True)
@@ -191,7 +229,7 @@ def generate_passwords():
         punctuation_level = settings.get("punctuation_level", 1)
         num_passwords = settings.get("num_passwords", 5)
         output_method = settings.get("output_method", "print")
-        generation_mode = settings.get("generation_mode", "1")
+        generation_mode = settings.get("generation_mode", 1)
 
         characters = []
         if use_lower and use_upper:
@@ -220,11 +258,11 @@ def generate_passwords():
         return
 
     passwords = []
-    if generation_mode == '1':
+    if generation_mode == 1:
         for _ in range(num_passwords):
-            password = ''.join(random.choice(characters) for _ in range(length))
+            password = ''.join(secrets.choice(characters) for _ in range(length))
             passwords.append(password)
-    elif generation_mode == '2':
+    elif generation_mode == 2:
         all_combinations = itertools.product(characters, repeat=length)
         for i, comb in enumerate(all_combinations):
             if i >= num_passwords:
@@ -238,11 +276,11 @@ def generate_passwords():
         print_formatted(f"\n✅  Successful generation!")
 
     elif output_method == 'file':
-        file_name = str(input("{:45}".format("📋  Enter the filename: "))) + ".txt"
+        file_name = str(input("{:45}".format("📋  Enter the filename : "))) + ".txt"
         with open(file_name, "w") as f:
             for pwd in passwords:
                 f.write(pwd + "\n")
-        print_formatted("✅  Successful generation! Passwords saved in the file:  {file_name}")
+        print_formatted("✅  Successful generation! Passwords saved in the file: " + file_name)
 
 # Main
 
