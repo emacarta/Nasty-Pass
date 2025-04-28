@@ -96,19 +96,19 @@ def get_punctuation_by_level():
     print("{:^80}".format("🔣  Punctuation Levels"))
     print("-" * 80)
 
-    print("{:45}".format("🔸 Level 1 (Basic)"))
+    print("{:45}".format(f"🔸 Level 1 (Basic)"))
     print("{:^80}".format(str_level_1))
 
-    print("{:45}".format("\n🔸 Level 2 (Intermediate)"))
+    print("{:45}".format(f"\n🔸 Level 2 (Intermediate)"))
     print("{:^80}".format(str_level_2))
 
-    print("{:45}".format("\n🔸 Level 3 (Extended)"))
+    print("{:45}".format(f"\n🔸 Level 3 (Extended)"))
     print("{:^80}".format("error in visualizaion"))
     #print("{:^80}".format(str_level_3[:5]))
 
     while True:
         try:
-            level = ask_number("\n⚙️  - Select punctuation level","(1/2/3)",1,3 )
+            level = ask_number(f"\n⚙️  - Select punctuation level","(1/2/3)",1,3 )
             #level = int(input("{:45}".format("\n⚙️  - Select punctuation level (1/2/3) :")))
             if level == 1:
                 return level_1
@@ -172,7 +172,7 @@ def ask_yes_no(prompt):
         if answer in ('y', 'n'):
             return answer == 'y'
         else:
-            print("❌  Enter only 'y' for yes or 'n' for no!")
+            print(f"❌  Enter only 'y' for yes or 'n' for no!")
 
 
 def ask_print_file(prompt):
@@ -182,7 +182,7 @@ def ask_print_file(prompt):
         if answer in ('print', 'file'):
             return answer
         else:
-            print("❌  Enter only print or file!")
+            print(f"❌  Enter only print or file!")
 
 def print_default_settings_and_confirm(settings):
     print("-" * 80)
@@ -198,9 +198,9 @@ def print_default_settings_and_confirm(settings):
     print(f"{'Output method:':35} {settings.get('output_method', 'print')}")
     print(f"{'Generation mode:':35} {settings.get('generation_mode', 1)}")
 
-    answer = ask_yes_no("\n❓  Do you want to continue with these settings? (y/n): ")
+    answer = ask_yes_no(f"\n❓  Do you want to continue with these settings? (y/n): ")
     if not answer:
-        print("\n👋  Exiting the program.")
+        print(f"\n👋  Exiting the program.")
         exit()
 
 
@@ -241,10 +241,10 @@ def generate_passwords():
             print("You must select at least one character type.")
             return
 
-        print_section("🛠️  Generation Options  🛠️")
+        print_section(f"🛠️  Generation Options  🛠️")
         num_passwords = ask_number("🔢  How many passwords to generate? ","",1,"inf")
         output_method = ask_print_file("🖨️   Output method [print/file]: ")
-        print_formatted("🎲  Generation mode:")
+        print_formatted(f"🎲  Generation mode:")
         print_options("(1) random")
         print_options("(2) sequential")
         generation_mode = ask_number(f"👉  Enter your choice","(1 or 2)",1,2)
@@ -301,7 +301,7 @@ def generate_passwords():
                 break
             passwords.append(''.join(comb))
 
-    print_section("📝  Output  📝")
+    print_section(f"📝  Output  📝")
     if output_method == 'print':
         for pwd in passwords:
             print(pwd)
@@ -312,7 +312,7 @@ def generate_passwords():
         with open(file_name, "w") as f:
             for pwd in passwords:
                 f.write(pwd + "\n")
-        print_formatted("✅  Successful generation! Passwords saved in the file: " + file_name)
+        print_formatted(f"✅  Successful generation! Passwords saved in the file: " + file_name)
 
 # Main
 
