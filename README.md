@@ -17,7 +17,7 @@
 
 ---
 
-## 📦 Libraries Used
+## 📦 Python Libraries Used
 
 - `random`
 - `secrets`
