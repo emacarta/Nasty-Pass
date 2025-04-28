@@ -93,7 +93,7 @@ def get_punctuation_by_level():
 
     # Stampa grafica carina
     print("-" * 80)
-    print("{:^80}".format("🔣  Punctuation Levels"))
+    print("{:^80}".format(f"🔣  Punctuation Levels"))
     print("-" * 80)
 
     print("{:45}".format(f"🔸 Level 1 (Basic)"))
@@ -219,10 +219,10 @@ def generate_passwords():
         print_section("🔧  Password Configuration  🔧")
 
         length = ask_number(f"🔢  Password length","(1-128)",1,128)
-        use_lower = ask_yes_no("🔡  Include lowercase letters? (y/n) :")
-        use_upper = ask_yes_no("🔠  Include uppercase letters? (y/n) :")
-        use_digits = ask_yes_no("🔢  Include numbers? (y/n) :")
-        use_punct = ask_yes_no("🔣  Include punctuation? (y/n) :")
+        use_lower = ask_yes_no(f"🔡  Include lowercase letters? (y/n) :")
+        use_upper = ask_yes_no(f"🔠  Include uppercase letters? (y/n) :")
+        use_digits = ask_yes_no(f"🔢  Include numbers? (y/n) :")
+        use_punct = ask_yes_no(f"🔣  Include punctuation? (y/n) :")
 
         characters = []
         if use_lower and use_upper:
@@ -242,8 +242,8 @@ def generate_passwords():
             return
 
         print_section(f"🛠️  Generation Options  🛠️")
-        num_passwords = ask_number("🔢  How many passwords to generate? ","",1,"inf")
-        output_method = ask_print_file("🖨️   Output method [print/file]: ")
+        num_passwords = ask_number(f"🔢  How many passwords to generate? ","",1,"inf")
+        output_method = ask_print_file(f"🖨️   Output method [print/file]: ")
         print_formatted(f"🎲  Generation mode:")
         print_options("(1) random")
         print_options("(2) sequential")
