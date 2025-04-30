@@ -1,4 +1,4 @@
-# Nasty Pass
+![Pass Nasty in Stile Retro](https://github.com/user-attachments/assets/430461e5-2360-4ae5-b5c9-dc4a4190a964)
 
 **Nasty Pass** is an advanced, customizable password generator designed to create secure and unique passwords through a simple, guided terminal interface.
 
