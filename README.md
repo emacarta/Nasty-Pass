@@ -57,7 +57,7 @@ When run for the first time, the script creates a `default.json` file with the s
 
 ---
 
-## 🧠 Examples
+## 🧠 Example
 
 ```text
 ================================================================================
