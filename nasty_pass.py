@@ -7,7 +7,7 @@ from textwrap import dedent
 import json
 import os
 
-# Data 
+#  Data 
 
 logo = dedent("""
          ▐ ▄  ▄▄▄· .▄▄ · ▄▄▄▄▄ ▄· ▄▌     ▄▄▄· ▄▄▄· .▄▄ · .▄▄ · 
