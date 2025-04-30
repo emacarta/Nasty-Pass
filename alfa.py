@@ -344,15 +344,14 @@ def generate_passwords():
         all_passwords = generate_variants(elements, password_length)
         num_all_passwords = len(all_passwords)
 
-        print(f"🖇️   Total number of possible combinations: {num_all_passwords}")
-
-        if not all_passwords:
-            print(f"❌  No possible combination with the given restrictions.")
-            return
-
-        max_generations = f"(max {num_all_passwords})"
+        #if not all_passwords:
+        #    print(f"❌  No possible combination with the given restrictions.")
+        #    return
 
         print_section(f"🛠️  Generation Options  🛠️")
+        
+        max_generations = f"(max {num_all_passwords})"
+        print(f"🖇️   Total number of possible combinations: {num_all_passwords}")
         number_of_passwords = ask_number(f"🔢  How many passwords to generate?", max_generations ,1, num_all_passwords)
         
         print_formatted(f"🎲  Generation mode:")
@@ -368,7 +367,7 @@ def generate_passwords():
         variant_choice = ask_yes_no(f"🔡  Do you want to generate variants of the passwords using alternative letters? (y/n): ")
 
         if variant_choice is True:
-            print("‼  WARRING: We recommend that you save the generated passwords in a file.")
+            print(f"⚠️  WARRING: We recommend that you save the generated passwords in a file.")
 
             for pwd in passwords:
                 variants = generate_letter_variants(pwd)
