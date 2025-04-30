@@ -28,7 +28,7 @@
 ### ▶️ Run the script
 
 ```bash
-python3 password_generator.py
+python3 nasty_pass.py
 ```
 
 When run for the first time, the script creates a `default.json` file with the standard configuration.
@@ -60,10 +60,7 @@ When run for the first time, the script creates a `default.json` file with the s
 ## 🧠 Examples
 
 ```text
-📝  Enter words or numbers separated by spaces:  hello 42 dog
-📂  Password length (max 11): 9
-Do you want variants? y
-Output method [print/file]: file
+...
 ```
 
 ---
