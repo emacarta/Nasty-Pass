@@ -60,7 +60,36 @@ When run for the first time, the script creates a `default.json` file with the s
 ## 🧠 Examples
 
 ```text
-...
+================================================================================
+                            🔐  Password Generator  🔐                            
+================================================================================
+🤌  What would you like to do?                                                   
+    (1) Generate a new password
+    (2) Create a custom password
+    (3) Use a default password
+👉  Enter your choice (1/2/3) :               1
+================================================================================
+                          🔧  Password Configuration  🔧                          
+================================================================================
+🔢  Password length (1-128) :                 14
+🔡  Include lowercase letters? (y/n) :        y
+🔠  Include uppercase letters? (y/n) :        n
+🔢  Include numbers? (y/n) :                  y
+🔣  Include punctuation? (y/n) :              n
+================================================================================
+                           🛠️  Generation Options  🛠️                           
+================================================================================
+🔢  How many passwords to generate?   :       1
+🖨️   Output method [print/file]:             print
+🎲  Generation mode:                                                             
+    (1) random
+    (2) sequential
+👉  Enter your choice (1 or 2) :              1
+================================================================================
+                                  📝  Output  📝                                  
+================================================================================
+i77uapnr31fnxd
+
 ```
 
 ---
