@@ -1,93 +1,110 @@
-![Pass Nasty in Stile Retro](https://github.com/user-attachments/assets/430461e5-2360-4ae5-b5c9-dc4a4190a964)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/430461e5-2360-4ae5-b5c9-dc4a4190a964" alt="Pass Nasty in Stile Retro" width="500" />
+</p>
+
 
 **Nasty Pass** is an advanced, customizable password generator designed to create secure and unique passwords through a simple, guided terminal interface.
 
----
+## 📦 Features
 
-## ✨ Main Features
-
-- Random password generation with custom settings
-- Use of lowercase, uppercase letters, digits, and symbols
-- Three selectable punctuation levels
-- Random or sequential generation modes
-- Save passwords to a file or print to terminal
-- Quick generation using default settings
-- Automatically creates a `default.json` settings file
-- Leet-style character variations (work in progress)
+- Generate random or sequential passwords
+- Choose character sets: lowercase, uppercase, digits, punctuation
+- Select punctuation level (basic to extended)
+- Create custom passwords from your own words and numbers
+- Generate letter-variant (leet-style) versions
+- Save output to file or print to console
+- Supports default settings via JSON
 
 ---
 
-## 📦 Python Libraries Used
+## 🚀 Getting Started
 
-- `random`
-- `secrets`
-- `itertools`
-- `textwrap`
-- `json`
-- `os`
+### 🔧 Requirements
 
----
+- Python 3.7 or higher
 
-## 🚀 How to Use
+### ▶️ Run the script
 
-1. **Installation**  
-   No special installation required. Just use Python 3.
+```bash
+python3 password_generator.py
+```
 
-2. **Run**  
-   Launch the program:
-   ```bash
-   python nasty_pass.py
-   ```
-
-3. **Initial Choices**  
-   Choose between:
-   - Generating a new custom password
-   - (In development) Creating a custom-designed password
-   - Using default settings
-
-4. **Configuration**  
-   When generating a new password, you can set:
-   - Password length
-   - Types of characters to include (lowercase, uppercase, digits, punctuation)
-   - Punctuation level (1 = basic, 2 = intermediate, 3 = extended)
-   - Number of passwords to generate
-   - Output method (`print` or `file`)
-   - Generation mode (`random` or `sequential`)
-
-5. **Output**  
-   View passwords directly in the terminal or save them into a `.txt` file.
+When run for the first time, the script creates a `default.json` file with the standard configuration.
 
 ---
 
-## 🛠️ Configuration File (`default.json`)
+## ⚙️ Usage Modes
 
-At first run, a `default.json` file is automatically created with these settings:
+### 1. **Random Password**
+- Select length
+- Choose which character types to include
+- Specify number of passwords
+- Choose output method (print or file)
+- Select generation mode: random or sequential
+
+### 2. **Custom Password**
+- Input your own words/numbers
+- Choose desired length
+- Automatically generate all combinations
+- Optional: create variants using letter substitutions (e.g., a → @, 4)
+- Choose output method
+
+### 3. **Use Default Settings**
+- Load predefined configuration from `default.json`
+- Skips prompts for faster use
+
+---
+
+## 🧠 Examples
+
+```text
+📝  Enter words or numbers separated by spaces:  hello 42 dog
+📂  Password length (max 11): 9
+Do you want variants? y
+Output method [print/file]: file
+```
+
+---
+
+## 📁 Default Settings File
+
+`default.json` is created automatically if not present. You can edit it to set your preferred defaults.
 
 ```json
 {
-    "length": 12,
-    "use_lower": true,
-    "use_upper": true,
-    "use_digits": true,
-    "use_punct": true,
-    "punctuation_level": 2,
-    "num_passwords": 5,
-    "output_method": "print",
-    "generation_mode": 1
+  "length": 12,
+  "use_lower": true,
+  "use_upper": true,
+  "use_digits": true,
+  "use_punct": true,
+  "punctuation_level": 2,
+  "num_passwords": 5,
+  "output_method": "print",
+  "generation_mode": 1
 }
 ```
 
-You can manually edit this file to change the default behavior.
+---
+
+## 🔐 Security Notes
+
+- Uses `secrets` module for cryptographic random generation
+- Avoids use of dangerous functions (`eval`, `exec`, etc.)
+- Input validation included for all interactive prompts
+- Be cautious with long sequential generations: it may impact performance
 
 ---
 
-## ⚡ To-Do and Future Improvements
+## 📄 License
 
-- Implement the "Custom Password" feature
-- Fix visualization for punctuation level 3
-- Add automatic leet-style transformations
-- Support multiple configuration profiles
-- Enable batch mode for high-volume password generation
+MIT License
+
+---
+
+## ✍️ Author
+
+Developed by [emacarta](https://github.com/emacarta)
+
 
 ---
 
