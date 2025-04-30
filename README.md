@@ -5,6 +5,8 @@
 
 **Nasty Pass** is an advanced, customizable password generator designed to create secure and unique passwords through a simple, guided terminal interface.
 
+⚠️ **WARNING**: This code is currently in beta. ⚠️
+
 ## 📦 Features
 
 - Generate random or sequential passwords
