@@ -109,7 +109,6 @@ def get_punctuation_by_level():
     while True:
         try:
             level = ask_number(f"\n⚙️  - Select punctuation level","(1/2/3)",1,3 )
-            #level = int(input("{:45}".format("\n⚙️  - Select punctuation level (1/2/3) :")))
             if level == 1:
                 return level_1
             elif level == 2:
@@ -206,7 +205,7 @@ def print_default_settings_and_confirm(settings):
 
 def get_inputs():
     elements = input("{:45}".format("📝  Enter words or numbers separated by spaces: ")).split() 
-    #stampare le parole sclete e chiedere se si è sicuri
+    #stampare le parole sclete e chiedere se si è sicuri <---
     elements = [e.lower() for e in elements]
     total_chars = sum(len(e) for e in elements)
     total_text = f"📈  Total number of characters: {total_chars}"
@@ -216,7 +215,7 @@ def get_inputs():
     return elements, password_length
 
 
-## check to start
+
 def generate_variants(elements, password_length):
     words = [e for e in elements if not e.isdigit()]
     numbers = [e for e in elements if e.isdigit()]
@@ -247,6 +246,7 @@ def generate_variants(elements, password_length):
 
     return list(set(all_combinations))
 
+
 def generate_letter_variants(password):
     variants = ['']
     for char in password:
@@ -268,7 +268,7 @@ def generate_passwords():
     print_section(f"🔐  Password Generator  🔐")
     print_formatted(f"🤌  What would you like to do?")
     print_options("(1) Generate a new password")
-    print_options("(2) Create a custom password" + "  WORK PROGRESS")
+    print_options("(2) Create a custom password")
     print_options("(3) Use a default password")
     choice = ask_number(f"👉  Enter your choice","(1/2/3)",1,3)
 
@@ -342,35 +342,45 @@ def generate_passwords():
         print_section(f"🛠️  Generation Options  🛠️")
         elements, password_length = get_inputs()
         all_passwords = generate_variants(elements, password_length)
+        num_all_passwords = len(all_passwords)
 
-        print(f"🖇️   Total number of possible combinations: {len(all_passwords)}")
+        print(f"🖇️   Total number of possible combinations: {num_all_passwords}")
 
         if not all_passwords:
-            print("No possible combination with the given restrictions.")
+            print(f"❌  No possible combination with the given restrictions.")
             return
 
-        number_of_passwords = int(input("How many passwords do you want to generate?: "))
-        mode = input("Do you want random (r) or sequential (s) generation? (r/s): ").strip().lower()
+        max_generations = f"(max {num_all_passwords})"
 
-        if mode == 'r':
-            selected = random.sample(all_passwords, min(number_of_passwords, len(all_passwords)))
-        else:
-            selected = all_passwords[:number_of_passwords]
+        print_section(f"🛠️  Generation Options  🛠️")
+        number_of_passwords = ask_number(f"🔢  How many passwords to generate?", max_generations ,1, num_all_passwords)
+        
+        print_formatted(f"🎲  Generation mode:")
+        print_options("(1) random")
+        print_options("(2) sequential")
+        generation_mode = ask_number(f"👉  Enter your choice","(1 or 2)",1,2)
 
-        print("\nGenerated passwords:")
-        for pwd in selected:
-            print(pwd)
+        if generation_mode == 1:
+            passwords = random.sample(all_passwords, min(number_of_passwords, len(all_passwords)))
+        elif generation_mode == 2:
+            passwords = all_passwords[:number_of_passwords]
 
-        variant_choice = input("Do you want to generate variants of the passwords using alternative letters? (y/n): ").strip().lower()
-        if variant_choice == 'y':
-            print("\nPassword variants:")
-            for pwd in selected:
+        variant_choice = ask_yes_no(f"🔡  Do you want to generate variants of the passwords using alternative letters? (y/n): ")
+
+        if variant_choice is True:
+            print("‼  WARRING: We recommend that you save the generated passwords in a file.")
+
+            for pwd in passwords:
                 variants = generate_letter_variants(pwd)
-                for v in variants:
-                    print(v)
+                passwords = variants
+        
+        output_method = ask_print_file(f"🖨️   Output method [print/file]: ")
 
-    passwords = []
+    
     if choice != 2:
+        
+        passwords = []
+        
         if generation_mode == 1:
             for _ in range(num_passwords):
                 password = ''.join(secrets.choice(characters) for _ in range(length))
