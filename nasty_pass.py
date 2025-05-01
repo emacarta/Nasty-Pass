@@ -370,7 +370,7 @@ def generate_passwords():
                 variants = generate_letter_variants(pwd)
                 passwords_variants += variants
         
-        passwords = passwords_variants
+                 passwords = passwords_variants
         
         output_method = ask_print_file(f"🖨️   Output method [print/file]: ")
 
