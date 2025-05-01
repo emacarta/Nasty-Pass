@@ -389,6 +389,7 @@ def generate_passwords():
                     break
                 passwords.append(''.join(comb))
 
+
     print_section(f"📝  Output  📝")
     if output_method == 'print':
         for pwd in passwords:

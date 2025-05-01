@@ -7,5 +7,5 @@
     "punctuation_level": 3,
     "num_passwords": 5,
     "output_method": "print",
-    "generation_mode": "1"
+    "generation_mode": 1
 }
