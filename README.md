@@ -5,7 +5,12 @@
 
 **Nasty Pass** is an advanced, customizable password generator designed to create secure and unique passwords through a simple, guided terminal interface.
 
-⚠️ **WARNING**: This code is currently in beta. ⚠️
+#### 🔐 Make Nasty Pass Your Go-To Tool Anytime!
+
+To make Nasty Pass useful at any time of the day, I’ve created a lightweight demo you can use wherever you are — quick, simple, and always accessible.
+
+👉 Try it here: [Nasty Pass Demo](https://sites.google.com/view/nastypass/password-generator)
+
 
 ## 📦 Features
 
