@@ -9,7 +9,7 @@
 
 To make Nasty Pass useful at any time of the day, I’ve created a lightweight demo you can use wherever you are — quick, simple, and always accessible.
 
-👉 Try it here: [Nasty Pass Demo](https://sites.google.com/view/nastypass/password-generator)
+👉 Try it here: [Nasty Pass Demo](https://sites.google.com/view/nastypass/nasty-password-generator)
 
 
 ## 📦 Features
