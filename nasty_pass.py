@@ -85,6 +85,8 @@ def get_punctuation_by_level():
     level_1 = ['!', '@', '#', '$', '%', '&', '*', '_']
     level_2 = ['^', '-', '+', '=', '?']
     level_3 = ['"', "'", '(', ')', ',', '.', '/', ':', ';', '<', '>', '[', '\\', ']', '`', '{', '|', '}', '~']
+    level_3_for_visual1 = ['"', "'", '(', ')', ',', '.', '/', ':', ';', '<', '>']
+    level_3_for_visual2 = ['[', '\\', ']', '`', '{', '|', '}', '~']
     
     # Creiamo le stringhe
     str_level_1 = list_to_string(level_1)
@@ -103,8 +105,8 @@ def get_punctuation_by_level():
     print("{:^80}".format(str_level_2))
 
     print("{:45}".format(f"\n🔸 Level 3 (Extended)"))
-    print("{:^80}".format("error in visualizaion"))
-    #print("{:^80}".format(str_level_3[:5]))
+    print("{:^80}".format(" ".join(level_3_for_visual1)))
+    print("{:^80}".format(" ".join(level_3_for_visual2)))
 
     while True:
         try:
